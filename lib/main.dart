@@ -64,20 +64,22 @@ class BluetoothOffScreen extends StatelessWidget {
   }
 }
 
-Future<http.Response> postData(List<int> data) {
+Future<http.Response> postData(List<int> data) async {
   print(data);
-  // arrived = true;
-  data.forEach((heartBeat) {
+
+  data.forEach((heartBeat) async {
     if (heartBeat != 0) {
-      return http.post(
-        'https://api.tago.io/data',
+      final response = await http.post(
+        'https://iothealth-api.herokuapp.com/api/smart-data/',
         headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': '37fc5aff-b312-4d6b-9487-5eb192656175',
+          "Accept": "application/json",
+          "content-type": "application/json"
         },
         body: jsonEncode(
-            <String, dynamic>{'variable': 'heartbeat', 'value': heartBeat}),
+            <String, dynamic>{'patientId': 1, 'cardiacFrequence': heartBeat}),
       );
+      print(response.statusCode);
+      return response;
     }
   });
   return http.post(
