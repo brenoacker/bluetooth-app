@@ -82,15 +82,6 @@ Future<http.Response> postData(List<int> data) async {
       return response;
     }
   });
-  return http.post(
-    'https://smartbandback.herokuapp.com/api/v1/addData',
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, List<int>>{
-      'data': data,
-    }),
-  );
 }
 
 class FindDevicesScreen extends StatelessWidget {
@@ -109,7 +100,6 @@ class FindDevicesScreen extends StatelessWidget {
           print(characteristic.isNotifying);
         }
       });
-      // if(service.uuid.toString().toUpperCase() ==
     });
 
     return d;
